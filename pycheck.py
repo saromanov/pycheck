@@ -1,4 +1,6 @@
 import numpy
+import random
+import string
 
 class Execution(object):
 	"""Exec provides execution of the test"""
@@ -37,12 +39,6 @@ class IntGen(Execution):
 				count+=1
 		return count
 
-	
-	def gen(self):
-		result = self._gen()
-		print("Total number of tests {0}".format(self.size))
-		print("Passed: {0}".format(result))
-
 
 class FloatGen(Execution):
 	def __init__(self, method, logic, min_value=-1000000, max_value=1000000, size=100):
@@ -58,5 +54,23 @@ class FloatGen(Execution):
 			item = numpy.random.rand()
 			point = numpy.random.randint(low=self.min_value, high=self.max_value)
 			if self.exec_method(self.method, point*item, self.logic) is True:
+				count+=1
+		return count
+
+class StringGen(Execution):
+	def __init__(self, method, logic, min_length=20, max_length=50, size=100):
+		super(StringGen, self).__init__(size)
+		self.method = method
+		self.min_length = min_length
+		self.max_length = max_length
+		self.logic = logic
+
+	def _gen(self):
+		count = 0
+		for i in range(self.size):
+			item = numpy.random.rand()
+			length = numpy.random.randint(low=self.min_length, high=self.max_length)
+			data = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(length)])
+			if self.exec_method(self.method, data, self.logic) is True:
 				count+=1
 		return count

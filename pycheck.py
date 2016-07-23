@@ -30,6 +30,7 @@ class Execution(object):
 		result = self._gen(self.func)
 		print("Total number of tests {0}".format(self.size))
 		print("Passed: {0}".format(result))
+		print("Failed: {0}".format(self.size - result))
 
 	def falled(self):
 		''' show only falled test cases

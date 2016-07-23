@@ -38,13 +38,8 @@ class IntGen(Execution):
 		self.size = size
 		self.logic = logic
 
-	def _gen(self):
-		count = 0
-		for i in range(self.size):
-			item = numpy.random.randint(low=self.min_value, high=self.max_value)
-			if self.exec_method(self.method, item, self.logic) is True:
-				count+=1
-		return count
+	def func(self):
+		return numpy.random.randint(low=self.min_value, high=self.max_value)
 
 
 class FloatGen(Execution):
@@ -55,14 +50,10 @@ class FloatGen(Execution):
 		self.max_value = max_value
 		self.logic = logic
 
-	def _gen(self):
-		count = 0
-		for i in range(self.size):
-			item = numpy.random.rand()
-			point = numpy.random.randint(low=self.min_value, high=self.max_value)
-			if self.exec_method(self.method, point*item, self.logic) is True:
-				count+=1
-		return count
+	def func(self):
+		item = numpy.random.rand()
+		point = numpy.random.randint(low=self.min_value, high=self.max_value)
+		return point * item
 
 class StringGen(Execution):
 	def __init__(self, method, logic, min_length=20, max_length=50, size=100):

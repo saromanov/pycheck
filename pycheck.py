@@ -15,8 +15,15 @@ class Execution(object):
 		except Exception:
 			return False
 
+	def _gen(self, func):
+		count = 0
+		for i in range(self.size):
+			if self.exec_method(self.method, func(), self.logic) is True:
+				count+=1
+		return count
+
 	def gen(self):
-		result = self._gen()
+		result = self._gen(self.func)
 		print("Total number of tests {0}".format(self.size))
 		print("Passed: {0}".format(result))
 		
@@ -65,12 +72,8 @@ class StringGen(Execution):
 		self.max_length = max_length
 		self.logic = logic
 
-	def _gen(self):
-		count = 0
-		for i in range(self.size):
-			item = numpy.random.rand()
-			length = numpy.random.randint(low=self.min_length, high=self.max_length)
-			data = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(length)])
-			if self.exec_method(self.method, data, self.logic) is True:
-				count+=1
-		return count
+	def func(self):
+		item = numpy.random.rand()
+		length = numpy.random.randint(low=self.min_length, high=self.max_length)
+		data = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(length)])
+		return data

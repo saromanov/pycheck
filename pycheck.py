@@ -5,8 +5,8 @@ import string
 class Execution(object):
 	"""Exec provides execution of the test"""
 	def __init__(self, size):
-		print(size)
 		self.size = size
+		self.fall = []
 
 	def exec_method(self, method, param, logic):
 		try:
@@ -18,14 +18,23 @@ class Execution(object):
 	def _gen(self, func):
 		count = 0
 		for i in range(self.size):
-			if self.exec_method(self.method, func(), self.logic) is True:
+			gen_data = func()
+			if self.exec_method(self.method, gen_data, self.logic) is True:
 				count+=1
+			else:
+				self.fall.append(gen_data)
 		return count
 
 	def gen(self):
 		result = self._gen(self.func)
 		print("Total number of tests {0}".format(self.size))
 		print("Passed: {0}".format(result))
+
+	def falled(self):
+		''' show only falled test cases
+		'''
+		return self.fall
+
 		
 
 class IntGen(Execution):
@@ -66,5 +75,5 @@ class StringGen(Execution):
 	def func(self):
 		item = numpy.random.rand()
 		length = numpy.random.randint(low=self.min_length, high=self.max_length)
-		data = ''.join([random.choice(string.ascii_letters + string.digits) for n in range(length)])
+		data = ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(length)])
 		return data

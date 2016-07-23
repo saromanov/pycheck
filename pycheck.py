@@ -17,6 +17,7 @@ class Execution(object):
 
 	def _gen(self, func):
 		count = 0
+		self.fall = []
 		for i in range(self.size):
 			gen_data = func()
 			if self.exec_method(self.method, gen_data, self.logic) is True:

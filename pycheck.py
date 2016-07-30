@@ -92,15 +92,19 @@ class ArrayGen(Execution):
 		self.logic = logic
 
 	def _gen_numbers(self):
-		numpy.random.randint(low=self.min_value, high=self.max_value)
+		return numpy.random.randint(low=self.min_length, high=self.max_length)
 
 	def _gen_strings(self):
 		return ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(self.size)])
 
+	def _gen_data(self):
+		methods = [self._gen_numbers, self._gen_strings]
+		num = numpy.random.randint(len(methods))
+		return methods[num]
+
 	def func(self):
 		item = numpy.random.rand()
 		length_array = numpy.random.randint(low=self.min_length, high=self.max_length)
-		data = [''.join([self._gen_strings() for n in range(self.size)]) \
-		for i in range(self.size)]
+		data = [self._gen_data()() for n in range(self.size)]
 		return data
 

@@ -86,7 +86,21 @@ class ArrayGen(Execution):
 		   min_length of the array and max_length of the array
 		'''
 		super(ArrayGen, self).__init__(size)
+		self.method = method
+		self.min_length = min_length
+		self.max_length = max_length
+		self.logic = logic
+
+	def _gen_numbers(self):
+		numpy.random.randint(low=self.min_value, high=self.max_value)
+
+	def _gen_strings(self):
+		return ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(self.size)
 
 	def func(self):
 		item = numpy.random.rand()
 		length_array = numpy.random.randint(low=self.min_length, high=self.max_length)
+		data = [''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(self.size)]) \
+		for i in range(self.size)]
+		return data
+

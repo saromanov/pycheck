@@ -79,3 +79,14 @@ class StringGen(Execution):
 		length = numpy.random.randint(low=self.min_length, high=self.max_length)
 		data = ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(length)])
 		return data
+
+class ArrayGen(Execution):
+	def __init__(self, method, logic, min_length=20, max_length=50, size=20):
+		'''
+		   min_length of the array and max_length of the array
+		'''
+		super(ArrayGen, self).__init__(size)
+
+	def func(self):
+		item = numpy.random.rand()
+		length_array = numpy.random.randint(low=self.min_length, high=self.max_length)

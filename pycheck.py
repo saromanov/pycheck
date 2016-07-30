@@ -95,12 +95,12 @@ class ArrayGen(Execution):
 		numpy.random.randint(low=self.min_value, high=self.max_value)
 
 	def _gen_strings(self):
-		return ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(self.size)
+		return ''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(self.size)])
 
 	def func(self):
 		item = numpy.random.rand()
 		length_array = numpy.random.randint(low=self.min_length, high=self.max_length)
-		data = [''.join([random.choice(string.ascii_letters + string.digits + string.punctuation) for n in range(self.size)]) \
+		data = [''.join([self._gen_strings() for n in range(self.size)]) \
 		for i in range(self.size)]
 		return data
 
